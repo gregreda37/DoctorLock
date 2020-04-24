@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "47640331222",
+    "firebase_url": "https://doctorlock-7e678.firebaseio.com",
+    "project_id": "doctorlock-7e678",
+    "storage_bucket": "doctorlock-7e678.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47640331222:android:acf1a22f524ed7bc979a77",
+        "android_client_info": {
+          "package_name": "com.ukrainianrestorationllc.doc_lock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47640331222-3r5pm986e9kjaliei76uf2260dbld38u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDOTW7ometG56OPfBSvJiJy64j-Bp5c7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47640331222-3r5pm986e9kjaliei76uf2260dbld38u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
