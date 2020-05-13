@@ -2,6 +2,8 @@ import 'package:doc_lock/shared/constants.dart';
 import 'package:doc_lock/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_lock/services/auth.dart';
+import 'package:doc_lock/services/database.dart';
+
 
 class Register extends StatefulWidget {
 
@@ -21,6 +23,7 @@ class _RegisterState extends State<Register> {
   //textField state
   String email = '';
   String password = '';
+  String name = '';
   String error = "";
   bool loading = false;
 
@@ -31,11 +34,11 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign Up'),
+        title: Text('New Patient'),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Sign In'),
+            label: Text('Returning Patients'),
             onPressed: () {
               widget.toggleView();
             },
@@ -43,12 +46,18 @@ class _RegisterState extends State<Register> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0),
+        padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 50.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.0),
+              TextFormField(
+                decoration: textInputDecoration.copyWith(hintText:'Name'),
+                onChanged: (val){
+                  setState(() => name = val);
+                },
+              ),
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText:'Email'),
                 validator: (val) => val.isEmpty ? 'Enter an Email': null,
@@ -75,7 +84,8 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                     if(_formKey.currentState.validate()){
                       setState(() => loading = true);
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(email, password, name);
+
                       if(result == null){
                         setState((){
                           error = "please supply a valid email";

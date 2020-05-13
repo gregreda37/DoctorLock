@@ -3,7 +3,7 @@ import 'package:doc_lock/services/database.dart';
 import 'package:doc_lock/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_lock/shared/constants.dart';
-import 'package:provider/provider.dart';
+
 
 class SettingsForm extends StatefulWidget {
   final String uid;
@@ -15,17 +15,16 @@ class SettingsForm extends StatefulWidget {
 
 class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> sugars = ['0','1','2','3','4'];
+  final List<String> sugars = ['0','1','2','3','4','5','6','7','8','9','10'];
   
-  String _currentName;
-  String _currentSugars;
-  int _currentStrength;
+  String _currentSymptoms;
+  String _currentPain;
+  int _currentSeverity;
+  String _name;
 
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<User>(context);
-  
     return StreamBuilder<UserData>(
       stream: DatabaseService(uid: widget.uid).userData,
       builder: (context, snapshot) {
@@ -36,36 +35,36 @@ class _SettingsFormState extends State<SettingsForm> {
             child: Column(
               children: <Widget>[
                 Text(
-                  "Update Your Brew Settings",
+                  "Update Patient ${userData.name}",
                   style: TextStyle(fontSize: 18.0),
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  initialValue: userData.name,
+                  initialValue: userData.symptoms,
                   decoration: textInputDecoration,
-                  validator: (val) => val.isEmpty ? 'Please enter a name' : null,
-                  onChanged: (val) => setState(() => _currentName = val),
+                  validator: (val) => val.isEmpty ? 'Please enter patient symptoms' : null,
+                  onChanged: (val) => setState(() => _currentSymptoms = val),
                 ),
                 SizedBox(height: 20.0),
                 DropdownButtonFormField(
                   decoration: textInputDecoration,
-                  value: _currentSugars ?? userData.sugars,
+                  value: _currentPain ?? userData.pain,
                   items: sugars.map((sugar){
                     return DropdownMenuItem(
                       value: sugar,
-                      child: Text('$sugar sugars'),
+                      child: Text('$sugar Pain'),
                     );
                   }).toList(),
-                  onChanged: (val) => setState(() => _currentSugars = val) ,
+                  onChanged: (val) => setState(() => _currentPain = val) ,
                 ),
                 Slider(
-                  value: (_currentStrength ?? userData.strength).toDouble(),
-                  activeColor: Colors.red[_currentStrength ?? userData.strength],
-                  inactiveColor: Colors.red[_currentStrength ?? userData.strength],
+                  value: (_currentSeverity ?? userData.severity).toDouble(),
+                  activeColor: Colors.red[_currentSeverity ?? userData.severity],
+                  inactiveColor: Colors.red[_currentSeverity ?? userData.severity],
                   min: 100,
                   max: 900,
                   divisions: 8,
-                  onChanged: (val) => setState(() => _currentStrength = val.round()),
+                  onChanged: (val) => setState(() => _currentSeverity = val.round()),
 
                 ),
                 RaisedButton(
@@ -77,9 +76,10 @@ class _SettingsFormState extends State<SettingsForm> {
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
                       await DatabaseService(uid: widget.uid).updateUserData(
-                        _currentSugars ?? userData.sugars,
-                        _currentName ?? userData.name,
-                        _currentStrength ?? userData.strength
+                        _currentPain ?? userData.pain,
+                        _currentSymptoms ?? userData.symptoms,
+                        _currentSeverity ?? userData.severity,
+                        _name ?? userData.name,
                       );
                       Navigator.pop(context);
                     }

@@ -1,10 +1,10 @@
 import 'package:doc_lock/screens/home/settings_form.dart';
 import 'package:flutter/material.dart';
-import 'package:doc_lock/models/brew.dart';
+import 'package:doc_lock/models/patient.dart';
 
 class BrewTile extends StatelessWidget {
 
-  final Brew brew;
+  final Patient brew;
   BrewTile({this.brew});
 
   @override
@@ -25,10 +25,10 @@ class BrewTile extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 25.0,
-            backgroundColor: Colors.brown[brew.strength],
+            backgroundColor: Colors.red[brew.severity],
           ),
           title: Text(brew.name),
-          subtitle: Text("Takes ${brew.sugars} sugar(s)"),
+          subtitle: Text("Pain Level 1-10 (${brew.pain})"),
           onTap: () {
             _showSettingsPanel();
           },

@@ -1,5 +1,5 @@
-import 'package:doc_lock/models/brew.dart';
-import 'package:doc_lock/screens/home/settings_form.dart';
+import 'package:doc_lock/models/patient.dart';
+
 import 'package:doc_lock/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_lock/services/auth.dart';
@@ -13,37 +13,22 @@ final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    // void _showSettingsPanel() {
-    //   showModalBottomSheet(context: context, builder: (context){
-    //     return Container(
-    //       padding: EdgeInsets.symmetric(vertical:20.0, horizontal: 60.0),
-    //       child: SettingsForm(),
-    //     );
-    //   });
-    // }
-
-
-    return StreamProvider<List <Brew>>.value(
+    return StreamProvider<List <Patient>>.value(
         value: DatabaseService().brews, 
         child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
-          title: Text('Greg'),
+          title: Text('Doctor Portal'),
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
               icon: Icon(Icons.person),
-              label:Text('logout'),
+              label:Text('Logout'),
               onPressed: () async {
                 await _auth.signOut();
               },
             ),
-            // FlatButton.icon(
-            //   icon: Icon(Icons.settings),
-            //   label: Text("settings"),
-            //   //onPressed: () => _showSettingsPanel(),
-            // ),
           ],
         ),
         body: BrewList(),

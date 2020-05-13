@@ -7,9 +7,10 @@ class User {
 class UserData {
   final String uid;
   final String name;
-  final String sugars;
-  final int strength;
+  final String pain;
+  final int severity;
+  final String symptoms;
 
-  UserData({this.uid, this.sugars, this.name, this.strength});
+  UserData({this.uid, this.pain, this.name, this.severity, this.symptoms});
   
 }
